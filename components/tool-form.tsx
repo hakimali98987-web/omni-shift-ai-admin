@@ -95,7 +95,7 @@ export function ToolForm({ toolId }: { toolId?: number }) {
 
   useEffect(() => {
     api
-      .get("/api/admin/categories")
+      .get("/categories")
       .then((res) => setCategories(Array.isArray(res.data) ? res.data : (res.data?.data ?? [])))
       .catch(() => {})
   }, [])
@@ -105,7 +105,7 @@ export function ToolForm({ toolId }: { toolId?: number }) {
     let active = true
     setLoading(true)
     api
-      .get<Tool>(`/api/admin/tools/${toolId}`)
+      .get<Tool>(`/tools/${toolId}`)
       .then((res) => {
         if (!active) return
         const t = res.data
@@ -156,10 +156,10 @@ export function ToolForm({ toolId }: { toolId?: number }) {
     }
     try {
       if (isEdit) {
-        await api.put(`/api/admin/tools/${toolId}`, payload)
+        await api.put(`/tools/${toolId}`, payload)
         toast.success("Tool updated")
       } else {
-        await api.post("/api/admin/tools", payload)
+        await api.post("/tools", payload)
         toast.success("Tool created")
       }
       router.push("/tools")

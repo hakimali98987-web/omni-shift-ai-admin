@@ -60,10 +60,10 @@ export function CategoryDialog({
     const payload = { name, slug: slug || slugify(name), icon, description }
     try {
       if (isEdit) {
-        await api.put(`/api/admin/categories/${category!.id}`, payload)
+        await api.put(`/categories/${category!.id}`, payload)
         toast.success("Category updated")
       } else {
-        await api.post("/api/admin/categories", payload)
+        await api.post("/categories", payload)
         toast.success("Category created")
       }
       onSaved()
