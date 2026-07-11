@@ -5,7 +5,7 @@ import axios from "axios"
 export const TOKEN_KEY = "omni_shift_token"
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "",
+  baseURL: "https://workspaceapi-server-production-a750.up.railway.app/api/admin" || "",
 })
 
 // Attach the JWT to every request.
