@@ -8,7 +8,6 @@ interface AuthContextValue {
   user: User | null
   token: string | null
   isAuthenticated: boolean
-  // True while we validate an existing token on mount.
   isLoading: boolean
   login: (email: string, password: string) => Promise<void>
   logout: () => void
@@ -29,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setToken(stored)
     api
-      .get("/api/admin/auth/me")
+      .get("/auth/me")   // ✅ changed from /api/admin/auth/me
       .then((res) => {
         setUser(res.data?.user ?? res.data)
       })
@@ -42,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const login = useCallback(async (email: string, password: string) => {
-    const res = await api.post("/api/admin/auth/login", { email, password })
+    const res = await api.post("/auth/login", { email, password })  // ✅ changed
     const { token: newToken, user: newUser } = res.data
     localStorage.setItem(TOKEN_KEY, newToken)
     setToken(newToken)
