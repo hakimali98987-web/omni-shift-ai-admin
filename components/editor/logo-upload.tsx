@@ -29,7 +29,7 @@ export function LogoUpload({
       const formData = new FormData()
       formData.append("file", file)
       try {
-        const res = await api.post<UploadResponse>("/api/admin/upload", formData, {
+        const res = await api.post<UploadResponse>("/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
           onUploadProgress: (e) => {
             if (e.total) setProgress(Math.round((e.loaded / e.total) * 100))
@@ -58,7 +58,7 @@ export function LogoUpload({
     onChange("")
     if (url) {
       try {
-        await api.delete("/api/admin/upload", { data: { url } })
+        await api.delete("/upload", { data: { url } })
       } catch {
         // Non-blocking: the reference is already cleared in the form.
       }

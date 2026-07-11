@@ -33,7 +33,7 @@ export default function DashboardPage() {
   useEffect(() => {
     let active = true
     api
-      .get<DashboardStats>("/api/admin/stats")
+      .get<DashboardStats>("/stats")
       .then((res) => {
         if (active) setStats(res.data)
       })

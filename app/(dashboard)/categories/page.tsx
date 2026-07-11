@@ -32,7 +32,7 @@ export default function CategoriesPage() {
   const fetchCategories = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await api.get("/api/admin/categories")
+      const res = await api.get("/categories")
       setCategories(Array.isArray(res.data) ? res.data : (res.data?.data ?? []))
     } catch (err) {
       toast.error(getApiErrorMessage(err, "Failed to load categories"))
@@ -59,7 +59,7 @@ export default function CategoriesPage() {
     if (!deleteTarget) return
     setDeleting(true)
     try {
-      await api.delete(`/api/admin/categories/${deleteTarget.id}`)
+      await api.delete(`/categories/${deleteTarget.id}`)
       toast.success(`Deleted "${deleteTarget.name}"`)
       setDeleteTarget(null)
       fetchCategories()
