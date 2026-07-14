@@ -4,8 +4,9 @@ import axios from "axios"
 
 export const TOKEN_KEY = "omni_shift_token"
 
+// ✅ Master hardcoded base URL – bypass environment variable confusion
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api/admin" || "https://omni-shift-ai-api-production.up.railway.app/api/admin" || "",
+  baseURL: "https://omni-shift-ai-api-production.up.railway.app/api/admin",
 })
 
 // Attach the JWT to every request.
