@@ -63,7 +63,7 @@ export default function ToolsPage() {
 
   useEffect(() => {
     api
-      .get("/api/admin/categories")
+      .get("/categories")  // ✅ fixed
       .then((res) => setCategories(Array.isArray(res.data) ? res.data : (res.data?.data ?? [])))
       .catch(() => {})
   }, [])
@@ -82,7 +82,7 @@ export default function ToolsPage() {
       if (pricing !== ALL) params.pricing = pricing
       if (featuredOnly) params.featured = true
 
-      const res = await api.get("/api/admin/tools", { params })
+      const res = await api.get("/tools", { params })  // ✅ fixed
       const list: Tool[] = res.data?.data ?? res.data?.tools ?? (Array.isArray(res.data) ? res.data : [])
       setTools(list)
       setTotal(res.data?.total ?? list.length)
@@ -99,7 +99,6 @@ export default function ToolsPage() {
     fetchTools()
   }, [fetchTools])
 
-  // Reset to page 1 whenever a filter changes.
   useEffect(() => {
     setPage(1)
     setSelected([])
@@ -122,10 +121,9 @@ export default function ToolsPage() {
   }
 
   async function handleToggleFeatured(tool: Tool) {
-    // Optimistic update
     setTools((prev) => prev.map((t) => (t.id === tool.id ? { ...t, featured: !t.featured } : t)))
     try {
-      await api.patch(`/api/admin/tools/${tool.id}/toggle-featured`)
+      await api.patch(`/tools/${tool.id}/toggle-featured`)  // ✅ fixed
     } catch (err) {
       setTools((prev) => prev.map((t) => (t.id === tool.id ? { ...t, featured: tool.featured } : t)))
       toast.error(getApiErrorMessage(err, "Failed to update featured status"))
@@ -136,7 +134,7 @@ export default function ToolsPage() {
     if (!deleteTarget) return
     setMutating(true)
     try {
-      await api.delete(`/api/admin/tools/${deleteTarget.id}`)
+      await api.delete(`/tools/${deleteTarget.id}`)  // ✅ fixed
       toast.success(`Deleted "${deleteTarget.name}"`)
       setDeleteTarget(null)
       fetchTools()
@@ -150,7 +148,7 @@ export default function ToolsPage() {
   async function handleBulkDelete() {
     setMutating(true)
     try {
-      await api.post("/api/admin/tools/bulk-delete", { ids: selected })
+      await api.post("/tools/bulk-delete", { ids: selected })  // ✅ fixed
       toast.success(`Deleted ${selected.length} tool${selected.length > 1 ? "s" : ""}`)
       setSelected([])
       setBulkDeleteOpen(false)
