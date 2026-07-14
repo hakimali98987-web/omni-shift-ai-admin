@@ -4,7 +4,7 @@ import axios from "axios"
 
 export const TOKEN_KEY = "omni_shift_token"
 
-// ✅ Master hardcoded base URL – bypass environment variable confusion
+// Master hardcoded base URL – bypass environment variable confusion
 export const api = axios.create({
   baseURL: "https://omni-shift-ai-api-production.up.railway.app/api/admin",
 })
