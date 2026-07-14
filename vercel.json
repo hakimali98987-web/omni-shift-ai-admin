@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/admin/api/admin/:path*",
+      "destination": "https://omni-shift-ai-api-production.up.railway.app/api/admin/:path*"
+    }
+  ]
+}
